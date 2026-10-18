@@ -38,8 +38,8 @@ pipeline {
         stage('Execute Automation Tests') {
             steps {
                 echo ">>> Running Cucumber BDD scenarios against: ${params.APP_URL} on ${params.BROWSER} [Headless: ${params.HEADLESS}] with tags: ${params.CUCUMBER_TAGS}..."
-                // Pass dynamic app.url along with browser, headless, and tags
-                bat "mvn test -Dapp.url=${params.APP_URL} -Dbrowser=${params.BROWSER} -Dheadless=${params.HEADLESS} -Dcucumber.filter.tags=\"${params.CUCUMBER_TAGS}\""
+                // Pass dynamic app.url, matching ChromeDriver 155, browser, headless, and tags
+                bat "mvn test -Dwebdriver.chrome.driver=\"C:\\Users\\SIM\\.cache\\selenium\\chromedriver\\win64\\155.0.8059.84\\chromedriver.exe\" -Dapp.url=${params.APP_URL} -Dbrowser=${params.BROWSER} -Dheadless=${params.HEADLESS} -Dcucumber.filter.tags=\"${params.CUCUMBER_TAGS}\""
             }
         }
     }

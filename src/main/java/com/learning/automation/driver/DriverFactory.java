@@ -62,6 +62,14 @@ public class DriverFactory {
 
             case "chrome":
             default:
+                // Auto-detect and bind matching ChromeDriver 155 if cached to prevent service-profile version mismatch
+                if (System.getProperty("webdriver.chrome.driver") == null) {
+                    java.io.File cachedDriver = new java.io.File("C:\\Users\\SIM\\.cache\\selenium\\chromedriver\\win64\\155.0.8059.84\\chromedriver.exe");
+                    if (cachedDriver.exists()) {
+                        System.setProperty("webdriver.chrome.driver", cachedDriver.getAbsolutePath());
+                    }
+                }
+
                 ChromeOptions chromeOptions = new ChromeOptions();
                 if (headless) {
                     // Modern headless flag in Chromium (matches real headed browser rendering)
