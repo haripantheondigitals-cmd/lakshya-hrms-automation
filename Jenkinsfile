@@ -9,7 +9,7 @@ pipeline {
     tools {
         // Must match the tool names configured in Jenkins -> Global Tool Configuration
         maven 'Maven-3.9.9'
-        jdk 'JDK-17'
+        jdk 'JDK 25'
     }
 
     // Parameters jo Jenkins UI par "Build with Parameters" me dikhenge
