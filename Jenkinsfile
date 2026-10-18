@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    // Daily Schedule: Har din dopahar 1:00 PM (13:00) ko automatic run karega
+    triggers {
+        cron('0 13 * * *')
+    }
+
     tools {
         // Must match the tool names configured in Jenkins -> Global Tool Configuration
         maven 'Maven-3.9.9'
