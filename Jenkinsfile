@@ -12,15 +12,12 @@ pipeline {
         jdk 'JDK-17'
     }
 
+    // Parameters jo Jenkins UI par "Build with Parameters" me dikhenge
     parameters {
+        string(name: 'APP_URL', defaultValue: 'https://lakshya.zfourhr.in', description: 'Target Application URL to test')
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Target browser for execution')
         choice(name: 'HEADLESS', choices: ['true', 'false'], description: 'Run browser in headless background mode')
         string(name: 'CUCUMBER_TAGS', defaultValue: '@adminLoginLogout', description: 'Cucumber tag filter expression')
-    }
-
-    environment {
-        // Prevent credentials exposure in logs
-        TEST_ENV = 'production'
     }
 
     stages {
@@ -40,9 +37,9 @@ pipeline {
 
         stage('Execute Automation Tests') {
             steps {
-                echo ">>> Running Cucumber BDD scenarios on ${params.BROWSER} [Headless: ${params.HEADLESS}] with tags: ${params.CUCUMBER_TAGS}..."
-                // Execute tests via Maven Surefire
-                bat "mvn test -Dbrowser=${params.BROWSER} -Dheadless=${params.HEADLESS} -Dcucumber.filter.tags=\"${params.CUCUMBER_TAGS}\""
+                echo ">>> Running Cucumber BDD scenarios against: ${params.APP_URL} on ${params.BROWSER} [Headless: ${params.HEADLESS}] with tags: ${params.CUCUMBER_TAGS}..."
+                // Pass dynamic app.url along with browser, headless, and tags
+                bat "mvn test -Dapp.url=${params.APP_URL} -Dbrowser=${params.BROWSER} -Dheadless=${params.HEADLESS} -Dcucumber.filter.tags=\"${params.CUCUMBER_TAGS}\""
             }
         }
     }

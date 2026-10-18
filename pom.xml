@@ -110,6 +110,7 @@
                     </suiteXmlFiles>
                     <!-- Allow passing CLI properties like -Dbrowser=chrome -Dheadless=true -->
                     <systemPropertyVariables>
+                        <app.url>${app.url}</app.url>
                         <browser>${browser}</browser>
                         <headless>${headless}</headless>
                     </systemPropertyVariables>
